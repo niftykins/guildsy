@@ -11,6 +11,11 @@ export default class App extends Component {
 	render() {
 		return (
 			<div className="app">
+				<div className="button">button</div>
+				<div className="outline button">button</div>
+				<div className="small green button">green</div>
+				<div className="small disabled button">disabled</div>
+
 				{this.props.children}
 			</div>
 		);
