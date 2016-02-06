@@ -1,0 +1,58 @@
+$make-size-helpers($prop, $side)
+	.small-{$prop}-{$side}
+		{$prop}-{$side} 0.5rem !important
+
+	.{$prop}-{$side}
+		{$prop}-{$side} 1rem !important
+
+	.large-{$prop}-{$side}
+		{$prop}-{$side} 2rem !important
+
+	.huge-{$prop}-{$side}
+		{$prop}-{$side} 4rem !important
+
+$make-margin($side)
+	$make-size-helpers(margin, $side)
+
+$make-padding($side)
+	$make-size-helpers(padding, $side)
+
+
+
+.page-container
+	height 100%
+	overflow auto
+
+.max-container
+	margin 0 auto
+	padding 8rem 2rem
+
+	@media only	screen and (max-height 768px)
+		padding 6rem 2rem
+
+	@media only screen and (min-width 1024px)
+		width 1024px
+
+.align-center
+	text-align center
+
+.bg-grey
+	background-color $greyBackgroundColour
+
+
+
+// MARGINS
+$make-margin(top)
+$make-margin(right)
+$make-margin(bottom)
+$make-margin(left)
+
+.margin-auto
+	margin-left auto !important
+	margin-right auto !important
+
+// PADDING
+$make-padding(top)
+$make-padding(right)
+$make-padding(bottom)
+$make-padding(left)

@@ -1,0 +1,22 @@
+$errorBackgroundColour = #D24B2A
+$successBackgroundColour = darken($green, 5%)
+
+.alert-banner
+	fixed top right left
+	opacity 0
+	font-size 20px
+	padding 1rem 3rem
+	color $white
+	text-shadow 0 1px 1px rgba(0, 0, 0, 0.1)
+	box-shadow 0 2px 1px rgba(0, 0, 0, 0.2)
+	cursor default
+	transition opacity 250ms ease-out
+
+	&.visible
+		opacity 1
+
+	&.error
+		background-color $errorBackgroundColour
+
+	&.success
+		background-color $successBackgroundColour

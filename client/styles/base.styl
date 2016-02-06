@@ -1,10 +1,16 @@
-@import 'nib'
-@import 'mui_colours'
-@import 'colours'
-@import 'variables'
+@require 'nib'
+@require 'mixins'
+@require 'mui_colours'
+@require 'colours'
+@require 'variables'
+@require 'helpers'
+@require 'columns'
 
 // css reset
 global-reset()
+
+*
+	box-sizing border-box
 
 // disable OS X over-scroll
 html, body
@@ -19,5 +25,32 @@ body
 		"Ubuntu", "Cantarell", "Fira Sans",
 		"Droid Sans", "Helvetica Neue", sans-serif
 	line-height 1.2
+	min-height 100%
+	font-size 16px
 
-@import 'button'
+strong
+	$bold-font()
+
+p
+	margin 0 0 1rem
+
+h1
+	font-size 2rem
+	line-height 2.5rem
+
+h1, h2, h3, h4, h5
+	font-weight 500
+	margin 0 0 1rem
+
+.app
+	position absolute
+	top 0
+	bottom 0
+	left 0
+	right 0
+
+@require 'button'
+@require 'input'
+@require 'card'
+
+@require '../components/*'

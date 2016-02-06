@@ -1,9 +1,9 @@
 .button
+	$bold-font()
 	position relative
-	display table
+	display block
 	user-select none
 	color $black
-	font-weight 600
 	text-decoration none
 	cursor pointer
 	border none
@@ -11,8 +11,10 @@
 	text-shadow 0 1px 1px rgba(0, 0, 0, 0.1)
 	text-align center
 	white-space nowrap
-	padding 14px 30px 13px
-	font-size 18px
+	padding 1rem 2rem
+	font-size 20px
+	line-height 1
+	outline 0
 
 	&:hover
 	&:focus
@@ -22,8 +24,11 @@
 		box-shadow inset 0 2px 1px rgba(0, 0, 0, 0.2) !important
 
 	&.small
-		padding 8px 14px 9px
-		font-size 15px
+		padding 0.5rem 1rem
+		font-size 16px
+
+	&.fluid
+		width 100%
 
 	&.disabled
 		color $white

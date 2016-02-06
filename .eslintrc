@@ -20,7 +20,8 @@
 		"Email": true,
 		"HTTP": true,
 		"Tracker": true,
-		"WebApp": true
+		"WebApp": true,
+		"ReactiveDict": true
 	},
 	"ecmaFeatures": {
 		"arrowFunctions": true,

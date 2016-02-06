@@ -1,0 +1,20 @@
+$create-grid($columns)
+	for $col in (1 .. $columns)
+		$width = 1% * (($col / $columns) * 100)
+		$minus = 1% * ((($columns - $col) / $columns) * 1.61)
+		$final = $width - $minus
+
+		.col-{$col}-{$columns}
+			width $final
+
+$create-grid(1)
+$create-grid(2)
+$create-grid(3)
+$create-grid(4)
+$create-grid(5)
+$create-grid(6)
+$create-grid(12)
+
+@media only screen and (max-width 767px)
+	[class^="col-"], [class*=" col-"]
+		width 85% !important
