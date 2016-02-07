@@ -1,44 +1,30 @@
 import {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 
-import {errorAlert} from 'utils/alerts';
 import {checkRefsForDisabled} from 'utils/client';
 
 import Input from '../Utils/Input';
 
-export default class CreateAccount extends Component {
+export default class Confirm extends Component {
 	static propTypes = {
-		history: PropTypes.object.isRequired
+		name: PropTypes.string,
+		url: PropTypes.string,
+		username: PropTypes.string,
+		onUpdateState: PropTypes.func.isRequired,
+		stepper: PropTypes.node
 	};
 
 	state = {
-		disabled: true
+		disabled: false
 	};
-
-	constructor(props) {
-		super(props);
-
-		Meteor.logout();
-	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
-
-		const email = this.refs.email.getValue();
-		const password = this.refs.password.getValue();
-
-		if ( ! email || ! password) {
-			return errorAlert('All fields are required');
-		}
-
-		Accounts.createUser({email, password}, (err) => {
-			if (err) return errorAlert(err.reason);
-
-			this.props.history.push('/');
-		});
 	};
 
 	render() {
+		const {name, url, username} = this.props;
+
 		const buttonClassName = classnames({
 			disabled: this.state.disabled
 		}, 'green button');
@@ -54,22 +40,31 @@ export default class CreateAccount extends Component {
 							<div className="brand">guildsy</div>
 
 							<div className="form-body">
-								<h1>Join guildsy</h1>
+								<h1>Confirm your group details</h1>
 
 								<Input
-									ref="email"
+									ref="input"
 									type="text"
-									label="Email address"
-									placeholder="Email address"
-									autoFocus={true}
+									label="Your group name"
+									defaultValue={name}
+									placeholder="Ex. Samurai Pizza Penguins"
 									onChange={checkRefsForDisabled.bind(this)}
 								/>
 
 								<Input
-									ref="password"
-									type="password"
-									label="Password"
-									placeholder="Password"
+									ref="input"
+									type="text"
+									label="Your web address"
+									defaultValue={url}
+									showUrlMask={true}
+									onChange={checkRefsForDisabled.bind(this)}
+								/>
+
+								<Input
+									ref="input"
+									type="text"
+									label="Username"
+									defaultValue={username}
 									onChange={checkRefsForDisabled.bind(this)}
 								/>
 							</div>
@@ -79,8 +74,10 @@ export default class CreateAccount extends Component {
 									className={buttonClassName}
 									type="submit"
 								>
-									Create Account
+									Finish
 								</button>
+
+								{this.props.stepper}
 							</div>
 						</form>
 					</div>

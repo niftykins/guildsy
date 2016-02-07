@@ -11,11 +11,15 @@ import App from './components/App';
 import SignIn from './components/Auth/SignIn';
 import CreateAccount from './components/Auth/CreateAccount';
 
+import CreateGroup from './components/CreateGroup/CreateGroup';
+
 const router = (
 	<Router history={history}>
 		<Route path="/" component={App}>
 			<Route path="sign-in" component={SignIn} />
 			<Route path="create-account" component={CreateAccount} />
+
+			<Route path="create-group" component={CreateGroup} />
 		</Route>
 	</Router>
 );

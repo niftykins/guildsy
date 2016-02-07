@@ -1,3 +1,6 @@
+$inputPadding = 0.75rem
+$inputFontSize = 20px
+
 .input-group
 	margin-bottom 1rem
 
@@ -10,16 +13,48 @@
 		margin-bottom 0.5rem
 		font-size 1rem
 
+		.hint
+			color $grey
+			font-weight 400
+
+.input-wrapper
+	position relative
+	color $grey
+
+	.input-mask
+		position absolute
+		margin $inputPadding
+		font-size $inputFontSize
+		color rgba(0, 0, 0, 0)
+		left 1px
+		top -2px
+		pointer-events none
+
+		&:before
+		&:after
+			color $grey
+
+		&:before
+			padding-right 3px
+			content 'https://'
+
+		&:after
+			padding-left 3px
+			content '.guildsy.com'
+
+	.input-mask + .input
+		padding-left 4.95rem
+
 .input
 	height auto
 	width 100%
 	max-width 100%
 	margin 0 0 0.5rem
-	padding 0.75rem
+	padding $inputPadding
 	color $black
 	border 1px solid $greyLight
 	border-radius $borderRadius
-	font-size 20px
+	font-size $inputFontSize
 	appearance none
 	outline 0
 	transition box-shadow 70ms ease-out, border-color 70ms ease-out

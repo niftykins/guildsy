@@ -4,7 +4,12 @@ export default class Input extends Component {
 	static propTypes = {
 		type: PropTypes.string,
 		placeholder: PropTypes.string,
-		label: PropTypes.string
+		label: PropTypes.string,
+		labelHint: PropTypes.string,
+		showUrlMask: PropTypes.bool,
+		onChange: PropTypes.func,
+		value: PropTypes.string,
+		defaultValue: PropTypes.string
 	};
 
 	static defaultProps = {
@@ -22,25 +27,57 @@ export default class Input extends Component {
 		return this.refs.input.value;
 	}
 
+	onInputChange = (e) => {
+		const value = this.getValue();
+
+		if (this.refs.mask) this.refs.mask.innerHTML = value;
+		if (this.props.onChange) this.props.onChange(e);
+	};
+
 	render() {
-		const {type, placeholder, label, ...props} = this.props;
+		const {
+			type,
+			placeholder,
+			label,
+			labelHint,
+			showUrlMask,
+			onChange,
+			...props
+		} = this.props;
+
+		const hint = labelHint && (
+			<span className="hint">
+				{labelHint}
+			</span>
+		);
+
+		const onInputChange = showUrlMask ? this.onInputChange : onChange;
 
 		return (
 			<div className="input-group">
 				{label &&
 					<label htmlFor={this.id}>
-						{label}
+						{label}	{hint}
 					</label>
 				}
 
-				<input
-					id={this.id}
-					className="input"
-					type={type}
-					ref="input"
-					placeholder={placeholder}
-					{...props}
-				/>
+				<div className="input-wrapper">
+					{showUrlMask &&
+						<div className="input-mask" ref="mask">
+							{this.props.value || this.props.defaultValue}
+						</div>
+					}
+
+					<input
+						id={this.id}
+						className="input"
+						type={type}
+						ref="input"
+						placeholder={placeholder}
+						onChange={onInputChange}
+						{...props}
+					/>
+				</div>
 			</div>
 		);
 	}

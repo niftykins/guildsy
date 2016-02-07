@@ -1,41 +1,25 @@
 import {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 
-import {errorAlert} from 'utils/alerts';
 import {checkRefsForDisabled} from 'utils/client';
 
 import Input from '../Utils/Input';
 
-export default class CreateAccount extends Component {
+export default class Url extends Component {
 	static propTypes = {
-		history: PropTypes.object.isRequired
+		name: PropTypes.string,
+		onUpdateState: PropTypes.func.isRequired,
+		stepper: PropTypes.node
 	};
 
 	state = {
-		disabled: true
+		disabled: false
 	};
-
-	constructor(props) {
-		super(props);
-
-		Meteor.logout();
-	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
 
-		const email = this.refs.email.getValue();
-		const password = this.refs.password.getValue();
-
-		if ( ! email || ! password) {
-			return errorAlert('All fields are required');
-		}
-
-		Accounts.createUser({email, password}, (err) => {
-			if (err) return errorAlert(err.reason);
-
-			this.props.history.push('/');
-		});
+		this.props.onUpdateState('url', this.refs.input.getValue());
 	};
 
 	render() {
@@ -54,22 +38,22 @@ export default class CreateAccount extends Component {
 							<div className="brand">guildsy</div>
 
 							<div className="form-body">
-								<h1>Join guildsy</h1>
+								<h1>
+									What web address do you want for your guildsy group?
+								</h1>
+
+								<p className="description">
+									This is the address used for your group homepage.
+								</p>
 
 								<Input
-									ref="email"
+									ref="input"
 									type="text"
-									label="Email address"
-									placeholder="Email address"
+									label="Your web address"
+									labelHint="(letters, numbers and dashes only)"
+									defaultValue={this.props.name}
+									showUrlMask={true}
 									autoFocus={true}
-									onChange={checkRefsForDisabled.bind(this)}
-								/>
-
-								<Input
-									ref="password"
-									type="password"
-									label="Password"
-									placeholder="Password"
 									onChange={checkRefsForDisabled.bind(this)}
 								/>
 							</div>
@@ -79,8 +63,10 @@ export default class CreateAccount extends Component {
 									className={buttonClassName}
 									type="submit"
 								>
-									Create Account
+									Next
 								</button>
+
+								{this.props.stepper}
 							</div>
 						</form>
 					</div>
