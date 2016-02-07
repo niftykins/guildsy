@@ -1,0 +1,67 @@
+$splitScreenOrange = #fdae69
+$uniconBlue = #bcdfe6
+
+.split-screen
+	width 100%
+	height 100%
+	overflow hidden
+
+	.split-pane-left
+	.split-pane-right
+		height 100%
+		transition background-color 200ms ease-out 0s
+
+	.split-pane-left
+		width 30rem
+		float left
+
+		*
+			flex 0 0 auto
+
+	.split-pane-right
+		background-color $greyBackgroundColour
+		width auto
+		overflow hidden
+
+		&.orange-pane
+			background-color $splitScreenOrange
+
+		&.unicorn-pane
+			background-color $uniconBlue
+
+		.image
+			height 100%
+			background-position 0 50%
+			background-repeat no-repeat
+			background-size contain
+
+	.split-pane-flex-wrapper
+		position relative
+		display flex
+		flex-direction column
+		justify-content space-between
+		min-height 100%
+
+	.brand
+		margin 1rem
+		font-size 32px
+		font-weight 500
+		color #000
+		cursor default
+
+	h1
+		font-size 48px
+		line-height 1
+		font-weight 300
+		margin-bottom 2rem
+		color $blackDark
+
+	.form-body
+		padding 0 12%
+		align-self center
+		width 100%
+
+	.controls
+		padding 0.5rem 12% 2rem
+		margin 0 auto
+		text-align center

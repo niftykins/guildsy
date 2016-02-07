@@ -15,12 +15,14 @@ export default class App extends Component {
 	};
 
 	getMeteorData() {
-		const user = Meteor.user();
+		// const user = Meteor.user();
 		// const handle = Meteor.subscribe('user');
 
 		return {
 			// isLoading: !handle.ready(),
-			user
+
+			// XXX fix for routes needing auth/noauth
+			user: true
 		};
 	}
 

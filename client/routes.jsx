@@ -8,9 +8,15 @@ const history = createHistory();
 
 import App from './components/App';
 
+import SignIn from './components/Auth/SignIn';
+import CreateAccount from './components/Auth/CreateAccount';
+
 const router = (
 	<Router history={history}>
-		<Route path="/" component={App} />
+		<Route path="/" component={App}>
+			<Route path="sign-in" component={SignIn} />
+			<Route path="create-account" component={CreateAccount} />
+		</Route>
 	</Router>
 );
 
