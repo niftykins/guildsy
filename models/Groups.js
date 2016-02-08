@@ -1,13 +1,20 @@
 import SimpleSchema from 'simple-schema';
-import CreatedUpdated from './CreatedUpdated';
+import createdUpdated from './createdUpdated';
 
 const Groups = new Mongo.Collection('groups');
 export default Groups;
 
-const schema = new SimpleSchema([CreatedUpdated, {
+// XXX probably want an index on url
+const schema = new SimpleSchema([createdUpdated, {
+	ownerId: {
+		type: SimpleSchema.RegEx.Id
+	},
+	name: {
+		type: String
+	},
+	url: {
+		type: String
+	}
 }]);
 
 Groups.attachSchema(schema);
-
-Groups.helpers({
-});

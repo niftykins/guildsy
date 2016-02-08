@@ -23,7 +23,11 @@ export default class SignIn extends Component {
 			}
 
 			const {location, history} = this.props;
-			const loc = (location.state && location.state.pathname) || '/';
+
+			// go to, in order: state path, current path, /
+			const statePath = location.state && location.state.pathname;
+			const currentPath = location.pathname !== '/sign-in' && location.pathname;
+			const loc = statePath || currentPath || '/';
 
 			history.push(loc);
 		});

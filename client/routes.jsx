@@ -6,7 +6,8 @@ import {Router, Route} from 'react-router';
 import {createHistory} from 'history';
 const history = createHistory();
 
-import App from './components/App';
+import AuthedLayout from './components/AuthedLayout';
+import UnauthedLayout from './components/UnauthedLayout';
 
 import SignIn from './components/Auth/SignIn';
 import CreateAccount from './components/Auth/CreateAccount';
@@ -15,10 +16,12 @@ import CreateGroup from './components/CreateGroup/CreateGroup';
 
 const router = (
 	<Router history={history}>
-		<Route path="/" component={App}>
+		<Route component={UnauthedLayout}>
 			<Route path="sign-in" component={SignIn} />
 			<Route path="create-account" component={CreateAccount} />
+		</Route>
 
+		<Route path="/" component={AuthedLayout}>
 			<Route path="create-group" component={CreateGroup} />
 		</Route>
 	</Router>

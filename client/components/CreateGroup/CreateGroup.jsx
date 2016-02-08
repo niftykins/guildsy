@@ -1,21 +1,39 @@
-import {Component} from 'react';
+import {Component, PropTypes} from 'react';
+import ReactMixin from 'react-mixin';
+import ReactMeteorData from 'react-meteor-data';
 
 import Name from './Name';
 import Url from './Url';
 import Username from './Username';
 import Confirm from './Confirm';
 
+import {PartialGroups} from 'models';
+
 const STEP_COUNT = 4;
 
+@ReactMixin.decorate(ReactMeteorData)
 export default class CreateGroup extends Component {
-	state = {
-		name: '',
-		url: '',
-		username: ''
+	static propTypes = {
+		history: PropTypes.object.isRequired
 	};
 
-	onUpdateState = (field, value) => {
-		this.setState({[field]: value});
+	getMeteorData() {
+		if (Meteor.subscribe('partial-group').ready()) {
+			const partial = PartialGroups.fetchOrCreatePartial();
+			return {partial};
+		}
+
+		return {isLoading: true};
+	}
+
+	onUpdateGroup = (field, value) => {
+		this.data.partial.updateField(field, value);
+	};
+
+	onCreateGroup = () => {
+		this.data.partial.createGroup((err, groupUrl) => {
+			if ( ! err) this.props.history.push(`/${groupUrl}`);
+		});
 	};
 
 	renderStepper(step) {
@@ -37,7 +55,9 @@ export default class CreateGroup extends Component {
 	}
 
 	render() {
-		const {name, url, username} = this.state;
+		if (this.data.isLoading) return null;
+
+		const {name, url, username} = this.data.partial;
 		let View = Confirm;
 		let step = 4;
 
@@ -54,9 +74,10 @@ export default class CreateGroup extends Component {
 
 		return (
 			<View
-				onUpdateState={this.onUpdateState}
+				onUpdateGroup={this.onUpdateGroup}
+				onCreateGroup={this.onCreateGroup}
 				stepper={this.renderStepper(step)}
-				{...this.state}
+				{...this.data.partial}
 			/>
 		);
 	}

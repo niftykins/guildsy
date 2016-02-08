@@ -1,16 +1,19 @@
+import _ from '_';
 import {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 
 import {checkRefsForDisabled} from 'utils/client';
 
 import Input from '../Utils/Input';
+import Brand from '../Utils/Brand';
 
 export default class Confirm extends Component {
 	static propTypes = {
 		name: PropTypes.string,
 		url: PropTypes.string,
 		username: PropTypes.string,
-		onUpdateState: PropTypes.func.isRequired,
+		onUpdateGroup: PropTypes.func.isRequired,
+		onCreateGroup: PropTypes.func.isRequired,
 		stepper: PropTypes.node
 	};
 
@@ -20,6 +23,18 @@ export default class Confirm extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
+
+		// check each input to see if it's been modified
+		_.each(this.refs, (ref, field) => {
+			const value = ref.getValue();
+
+			// update the value if it's been modified
+			if (value !== this.props[field]) {
+				this.props.onUpdateGroup(field, value);
+			}
+		});
+
+		this.props.onCreateGroup();
 	};
 
 	render() {
@@ -37,13 +52,13 @@ export default class Confirm extends Component {
 							className="split-pane-flex-wrapper"
 							onSubmit={this.onSubmit}
 						>
-							<div className="brand">guildsy</div>
+							<Brand />
 
 							<div className="form-body">
 								<h1>Confirm your group details</h1>
 
 								<Input
-									ref="input"
+									ref="name"
 									type="text"
 									label="Your group name"
 									defaultValue={name}
@@ -52,7 +67,7 @@ export default class Confirm extends Component {
 								/>
 
 								<Input
-									ref="input"
+									ref="url"
 									type="text"
 									label="Your web address"
 									defaultValue={url}
@@ -61,7 +76,7 @@ export default class Confirm extends Component {
 								/>
 
 								<Input
-									ref="input"
+									ref="username"
 									type="text"
 									label="Username"
 									defaultValue={username}
@@ -74,7 +89,7 @@ export default class Confirm extends Component {
 									className={buttonClassName}
 									type="submit"
 								>
-									Finish
+									Create my new group
 								</button>
 
 								{this.props.stepper}

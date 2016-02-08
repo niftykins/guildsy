@@ -8,12 +8,14 @@ $successBackgroundColour = darken($green, 5%)
 	padding 1rem 3rem
 	color $white
 	text-shadow 0 1px 1px rgba(0, 0, 0, 0.1)
-	box-shadow 0 2px 1px rgba(0, 0, 0, 0.2)
 	cursor default
 	transition opacity 250ms ease-out
+	z-index 0
 
 	&.visible
+		z-index 50
 		opacity 1
+		box-shadow 0 2px 1px rgba(0, 0, 0, 0.2)
 
 	&.error
 		background-color $errorBackgroundColour

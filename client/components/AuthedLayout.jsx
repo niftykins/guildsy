@@ -6,23 +6,18 @@ import SignIn from './Auth/SignIn';
 import Alert from './Alert/Alert';
 
 @ReactMixin.decorate(ReactMeteorData)
-export default class App extends Component {
+export default class AuthedLayout extends Component {
 	static propTypes = {
-		history: PropTypes.object.isRequired,
-		location: PropTypes.object.isRequired,
-		params: PropTypes.object.isRequired,
 		children: PropTypes.node
 	};
 
 	getMeteorData() {
-		// const user = Meteor.user();
-		// const handle = Meteor.subscribe('user');
+		const user = Meteor.user();
+		const handle = Meteor.subscribe('user');
 
 		return {
-			// isLoading: !handle.ready(),
-
-			// XXX fix for routes needing auth/noauth
-			user: true
+			isLoading: !handle.ready(),
+			user
 		};
 	}
 
@@ -52,7 +47,6 @@ class LoadingContainer extends Component {
 	render() {
 		return (
 			<div className="page-container">
-				Doing the loading!
 			</div>
 		);
 	}

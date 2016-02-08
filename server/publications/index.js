@@ -1,1 +1,2 @@
-import './PartialGroups';
+import './users';
+import './partialGroups';

@@ -8,7 +8,7 @@ import Input from '../Utils/Input';
 export default class Url extends Component {
 	static propTypes = {
 		name: PropTypes.string,
-		onUpdateState: PropTypes.func.isRequired,
+		onUpdateGroup: PropTypes.func.isRequired,
 		stepper: PropTypes.node
 	};
 
@@ -18,8 +18,7 @@ export default class Url extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-
-		this.props.onUpdateState('url', this.refs.input.getValue());
+		this.props.onUpdateGroup('url', this.refs.input.getValue());
 	};
 
 	render() {

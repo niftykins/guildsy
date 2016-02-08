@@ -7,7 +7,7 @@ import Input from '../Utils/Input';
 
 export default class Name extends Component {
 	static propTypes = {
-		onUpdateState: PropTypes.func.isRequired,
+		onUpdateGroup: PropTypes.func.isRequired,
 		stepper: PropTypes.node
 	};
 
@@ -17,8 +17,7 @@ export default class Name extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-
-		this.props.onUpdateState('name', this.refs.input.getValue());
+		this.props.onUpdateGroup('name', this.refs.input.getValue());
 	};
 
 	render() {

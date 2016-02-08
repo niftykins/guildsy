@@ -1,3 +1,4 @@
-export {default as Users} from './Users';
-export {default as PartialGroups} from './PartialGroups';
-export {default as Groups} from './Groups';
+export {default as Users} from './users';
+export {default as PartialGroups} from './partialGroups';
+export {default as Groups} from './groups';
+export {default as GroupMembers} from './groupMembers';

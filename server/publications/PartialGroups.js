@@ -1,6 +1,6 @@
 import {PartialGroups} from 'models';
 
-Meteor.publish('partial-groups', function() {
+Meteor.publish('partial-group', function() {
 	return PartialGroups.find({
 		userId: this.userId
 	}, {
