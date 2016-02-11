@@ -1,9 +1,9 @@
 import {Component, PropTypes} from 'react';
+import {browserHistory} from 'react-router';
 import {errorAlert} from 'utils/alerts';
 
 export default class SignIn extends Component {
 	static propTypes = {
-		history: PropTypes.object.isRequired,
 		location: PropTypes.object.isRequired
 	};
 
@@ -22,14 +22,14 @@ export default class SignIn extends Component {
 				return errorAlert(err.reason);
 			}
 
-			const {location, history} = this.props;
+			const {state, pathname} = this.props.location;
 
 			// go to, in order: state path, current path, /
-			const statePath = location.state && location.state.pathname;
-			const currentPath = location.pathname !== '/sign-in' && location.pathname;
+			const statePath = state && state.pathname;
+			const currentPath = pathname !== '/sign-in' && pathname;
 			const loc = statePath || currentPath || '/';
 
-			history.push(loc);
+			browserHistory.push(loc);
 		});
 	};
 
@@ -53,6 +53,7 @@ export default class SignIn extends Component {
 								ref="email"
 								type="text"
 								placeholder="Email Address"
+								autoFocus={true}
 							/>
 
 							<input

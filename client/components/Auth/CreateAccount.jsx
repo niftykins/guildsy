@@ -1,5 +1,6 @@
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 import classnames from 'classnames';
+import {browserHistory} from 'react-router';
 
 import {errorAlert} from 'utils/alerts';
 import {checkRefsForDisabled} from 'utils/client';
@@ -7,10 +8,6 @@ import {checkRefsForDisabled} from 'utils/client';
 import Input from '../Utils/Input';
 
 export default class CreateAccount extends Component {
-	static propTypes = {
-		history: PropTypes.object.isRequired
-	};
-
 	state = {
 		disabled: true
 	};
@@ -34,7 +31,7 @@ export default class CreateAccount extends Component {
 		Accounts.createUser({email, password}, (err) => {
 			if (err) return errorAlert(err.reason);
 
-			this.props.history.push('/');
+			browserHistory.push('/');
 		});
 	};
 

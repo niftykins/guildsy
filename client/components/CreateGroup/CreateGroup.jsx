@@ -1,6 +1,7 @@
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 import ReactMixin from 'react-mixin';
 import ReactMeteorData from 'react-meteor-data';
+import {browserHistory} from 'react-router';
 
 import Name from './Name';
 import Url from './Url';
@@ -13,10 +14,6 @@ const STEP_COUNT = 4;
 
 @ReactMixin.decorate(ReactMeteorData)
 export default class CreateGroup extends Component {
-	static propTypes = {
-		history: PropTypes.object.isRequired
-	};
-
 	getMeteorData() {
 		if (Meteor.subscribe('partial-group').ready()) {
 			const partial = PartialGroups.fetchOrCreatePartial();
@@ -32,7 +29,7 @@ export default class CreateGroup extends Component {
 
 	onCreateGroup = () => {
 		this.data.partial.createGroup((err, groupUrl) => {
-			if ( ! err) this.props.history.push(`/${groupUrl}`);
+			if ( ! err) browserHistory.push(`/${groupUrl}`);
 		});
 	};
 
