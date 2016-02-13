@@ -1,5 +1,8 @@
+import _ from '_';
 import SimpleSchema from 'simple-schema';
 import createdUpdated from './createdUpdated';
+
+import methodCall from 'utils/methodCall';
 
 const Groups = new Mongo.Collection('groups');
 export default Groups;
@@ -22,3 +25,15 @@ const schema = new SimpleSchema([createdUpdated, {
 }]);
 
 Groups.attachSchema(schema);
+
+_.extend(Groups, {
+	fetchByUrl(url, opts = {}) {
+		return Groups.findOne({url}, opts);
+	}
+});
+
+Groups.helpers({
+	joinGroup(username, cb) {
+		methodCall('groups.join', this._id, username, cb);
+	}
+});

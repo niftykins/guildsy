@@ -49,7 +49,7 @@ function GroupTile({group}) {
 		<Link
 			className="tile"
 			title={group.name}
-			to={`/${group.url}`}
+			to={`/g/${group.url}/info`}
 		>
 			<img src="https://placehold.it/150x150" />
 

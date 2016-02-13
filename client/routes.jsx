@@ -12,6 +12,8 @@ import CreateAccount from './components/Auth/CreateAccount';
 
 import IndexPage from './components/Index/IndexPage';
 
+import GroupInfo from './components/GroupInfo/GroupInfo';
+
 import CreateGroup from './components/CreateGroup/CreateGroup';
 import ExplorePage from './components/Explore/ExplorePage';
 
@@ -28,6 +30,10 @@ const router = (
 			<Route path="create-group" component={CreateGroup} />
 
 			<Route path="explore" component={ExplorePage} />
+
+			<Route path="g/:groupUrl">
+				<Route path="info" component={GroupInfo} />
+			</Route>
 		</Route>
 	</Router>
 );

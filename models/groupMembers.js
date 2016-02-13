@@ -1,3 +1,4 @@
+import _ from '_';
 import SimpleSchema from 'simple-schema';
 import createdUpdated from './createdUpdated';
 
@@ -25,3 +26,8 @@ const schema = new SimpleSchema([createdUpdated, {
 
 GroupMembers.attachSchema(schema);
 
+_.extend(GroupMembers, {
+	fetchMember(userId, groupId, opts = {}) {
+		return this.findOne({userId, groupId}, opts);
+	}
+});

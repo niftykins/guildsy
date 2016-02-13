@@ -1,4 +1,5 @@
 import {Component, PropTypes} from 'react';
+import classnames from 'classnames';
 
 export default class Input extends Component {
 	static propTypes = {
@@ -9,7 +10,8 @@ export default class Input extends Component {
 		showUrlMask: PropTypes.bool,
 		onChange: PropTypes.func,
 		value: PropTypes.string,
-		defaultValue: PropTypes.string
+		defaultValue: PropTypes.string,
+		className: PropTypes.string
 	};
 
 	static defaultProps = {
@@ -42,6 +44,7 @@ export default class Input extends Component {
 			labelHint,
 			showUrlMask,
 			onChange,
+			className,
 			...props
 		} = this.props;
 
@@ -53,8 +56,10 @@ export default class Input extends Component {
 
 		const onInputChange = showUrlMask ? this.onInputChange : onChange;
 
+		const inputGroupClassName = classnames(className, 'input-group');
+
 		return (
-			<div className="input-group">
+			<div className={inputGroupClassName}>
 				{label &&
 					<label htmlFor={this.id}>
 						{label}	{hint}

@@ -29,7 +29,7 @@ export default class CreateGroup extends Component {
 
 	onCreateGroup = () => {
 		this.data.partial.createGroup((err, groupUrl) => {
-			if ( ! err) browserHistory.push(`/${groupUrl}`);
+			if ( ! err) browserHistory.push(`/g/${groupUrl}`);
 		});
 	};
 
