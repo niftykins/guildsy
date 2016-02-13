@@ -3,10 +3,13 @@ import _ from '_';
 import './routes';
 import './styles/base.styl';
 
-if (process.env.NODE_ENV !== 'production') {
-	const models = require('models');
-
-	_.each(models, (value, key) => {
+function globalify(obj) {
+	_.each(obj, (value, key) => {
 		window[key] = value;
 	});
+}
+
+if (process.env.NODE_ENV !== 'production') {
+	globalify(require('models'));
+	globalify(require('models/client'));
 }

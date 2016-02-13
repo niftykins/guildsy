@@ -19,8 +19,10 @@ Meteor.publishComposite('user', () => {
 				return GroupMembers.find({
 					userId: this.userId
 				}, {
-					// only need groupId to find the group below
+					// only need groupId and userId to find the
+					// groups we belong to (below and in client)
 					fields: {
+						userId: 1,
 						groupId: 1
 					}
 				});

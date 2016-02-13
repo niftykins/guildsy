@@ -13,6 +13,7 @@ import CreateAccount from './components/Auth/CreateAccount';
 import IndexPage from './components/Index/IndexPage';
 
 import CreateGroup from './components/CreateGroup/CreateGroup';
+import ExplorePage from './components/Explore/ExplorePage';
 
 const router = (
 	<Router history={browserHistory}>
@@ -25,6 +26,8 @@ const router = (
 			<IndexRoute component={IndexPage} />
 
 			<Route path="create-group" component={CreateGroup} />
+
+			<Route path="explore" component={ExplorePage} />
 		</Route>
 	</Router>
 );

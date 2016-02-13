@@ -17,3 +17,4 @@ webpack:webpack
 aldeed:collection2
 dburles:collection-helpers
 percolate:migrations
+reywood:publish-composite

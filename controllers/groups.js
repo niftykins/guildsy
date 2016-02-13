@@ -30,7 +30,8 @@ function createGroup(partialId) {
 	const groupId = Groups.insert({
 		ownerId: this.userId,
 		name: partial.name,
-		url: partial.url
+		url: partial.url,
+		memberCount: 1
 	});
 
 	// create admin group member for owner
@@ -48,6 +49,17 @@ function createGroup(partialId) {
 	return partial.url;
 }
 
+function fetchExplore() {
+	return Groups.find({}, {
+		fields: {
+			memberCount: 1,
+			name: 1,
+			url: 1
+		}
+	}).fetch();
+}
+
 Meteor.methods({
-	'groups.create': createGroup
+	'groups.create': createGroup,
+	'groups.fetchExplore': fetchExplore
 });

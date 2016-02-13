@@ -14,6 +14,10 @@ const schema = new SimpleSchema([createdUpdated, {
 	},
 	url: {
 		type: String
+	},
+	memberCount: {
+		type: Number,
+		defaultValue: 0
 	}
 }]);
 
