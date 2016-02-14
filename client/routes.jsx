@@ -3,9 +3,10 @@ import {render} from 'react-dom';
 window.React = React;
 
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+window.browserHistory = browserHistory;
 
-import AuthedLayout from './components/AuthedLayout';
-import UnauthedLayout from './components/UnauthedLayout';
+import AuthedLayout from './components/Layouts/AuthedLayout';
+import UnauthedLayout from './components/Layouts/UnauthedLayout';
 
 import SignIn from './components/Auth/SignIn';
 import CreateAccount from './components/Auth/CreateAccount';

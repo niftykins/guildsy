@@ -27,7 +27,14 @@ const schema = new SimpleSchema([createdUpdated, {
 GroupMembers.attachSchema(schema);
 
 _.extend(GroupMembers, {
-	fetchMember(userId, groupId, opts = {}) {
+	fetchMember(groupId, userId, opts = {}) {
 		return this.findOne({userId, groupId}, opts);
+	},
+
+	// XXX this can't be called in pub functions
+	fetchUsersMember(groupId, opts = {}) {
+		const userId = Meteor.userId();
+
+		return this.fetchMember(groupId, userId, opts);
 	}
 });

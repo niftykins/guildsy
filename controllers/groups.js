@@ -80,7 +80,7 @@ function joinGroup(groupId, username) {
 	}
 
 	// check user isn't already in the group
-	const member = GroupMembers.fetchMember(this.userId, groupId, justIdField);
+	const member = GroupMembers.fetchUsersMember(groupId, justIdField);
 
 	if (member) {
 		throw new Meteor.Error('bad-data', 'You\'re already a member of this group');

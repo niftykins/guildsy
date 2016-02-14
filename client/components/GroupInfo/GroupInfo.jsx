@@ -18,10 +18,8 @@ export default class IndexGroup extends Component {
 		const {groupUrl} = this.props.params;
 
 		if (Meteor.subscribe('group.info', groupUrl).ready()) {
-			const userId = Meteor.userId();
-
 			const group = Groups.fetchByUrl(groupUrl);
-			const isMember = group && GroupMembers.fetchMember(userId, group._id);
+			const isMember = group && GroupMembers.fetchUsersMember(group._id);
 
 			return {isMember, group};
 		}

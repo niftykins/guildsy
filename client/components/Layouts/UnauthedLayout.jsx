@@ -1,5 +1,5 @@
 import {Component, PropTypes} from 'react';
-import Alert from './Alert/Alert';
+import Alert from '../Alert/Alert';
 
 export default class UnauthedLayout extends Component {
 	static propTypes = {
