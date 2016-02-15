@@ -12,12 +12,12 @@ export default class Input extends Component {
 		value: PropTypes.string,
 		defaultValue: PropTypes.string,
 		className: PropTypes.string
-	};
+	}
 
 	static defaultProps = {
 		type: 'text',
 		placeholder: ''
-	};
+	}
 
 	constructor(props) {
 		super(props);
@@ -34,7 +34,7 @@ export default class Input extends Component {
 
 		if (this.refs.mask) this.refs.mask.innerHTML = value;
 		if (this.props.onChange) this.props.onChange(e);
-	};
+	}
 
 	render() {
 		const {

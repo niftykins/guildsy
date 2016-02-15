@@ -4,7 +4,7 @@ import Alert from '../Alert/Alert';
 export default class UnauthedLayout extends Component {
 	static propTypes = {
 		children: PropTypes.node
-	};
+	}
 
 	render() {
 		return (

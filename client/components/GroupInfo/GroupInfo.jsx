@@ -12,7 +12,7 @@ import {Groups, GroupMembers} from 'models';
 export default class IndexGroup extends Component {
 	static propTypes = {
 		params: PropTypes.object.isRequired
-	};
+	}
 
 	getMeteorData() {
 		const {groupUrl} = this.props.params;
@@ -33,7 +33,7 @@ export default class IndexGroup extends Component {
 		group.joinGroup(username, (err) => {
 			if ( ! err) browserHistory.push(`/g/${group.url}`);
 		});
-	};
+	}
 
 	render() {
 		const {isLoading, isMember, group} = this.data;

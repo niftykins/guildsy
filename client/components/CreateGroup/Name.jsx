@@ -9,16 +9,16 @@ export default class Name extends Component {
 	static propTypes = {
 		onUpdateGroup: PropTypes.func.isRequired,
 		stepper: PropTypes.node
-	};
+	}
 
 	state = {
 		disabled: true
-	};
+	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
 		this.props.onUpdateGroup('name', this.refs.input.getValue());
-	};
+	}
 
 	render() {
 		const buttonClassName = classnames({

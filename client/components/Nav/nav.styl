@@ -1,10 +1,14 @@
 $pickerWidth = 4rem
 
 .nav
-	display flex
+	height 100%
 	flex-shrink 0
 
 .group-picker
+	position absolute
+	top 0
+	left 0
+	bottom 0
 	display flex
 	flex-shrink 0
 	flex-direction column
@@ -17,6 +21,9 @@ $pickerWidth = 4rem
 		color $lightWhite
 		text-align center
 		height 64px
+
+		&.active
+			color $white
 
 		i
 			font-size 36px
@@ -47,8 +54,7 @@ $pickerWidth = 4rem
 			border-color $lightWhite
 
 .nav-menu
-	position relative
-	left $pickerWidth * -1
+	height 100%
 	padding-left $pickerWidth
 	width $pickerWidth + 14rem
 	background-color #4d394b

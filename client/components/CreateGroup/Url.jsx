@@ -10,16 +10,16 @@ export default class Url extends Component {
 		name: PropTypes.string,
 		onUpdateGroup: PropTypes.func.isRequired,
 		stepper: PropTypes.node
-	};
+	}
 
 	state = {
 		disabled: false
-	};
+	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
 		this.props.onUpdateGroup('url', this.refs.input.getValue());
-	};
+	}
 
 	render() {
 		const buttonClassName = classnames({

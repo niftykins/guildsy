@@ -10,7 +10,7 @@ import Input from '../Utils/Input';
 export default class CreateAccount extends Component {
 	state = {
 		disabled: true
-	};
+	}
 
 	constructor(props) {
 		super(props);
@@ -33,7 +33,7 @@ export default class CreateAccount extends Component {
 
 			browserHistory.push('/');
 		});
-	};
+	}
 
 	render() {
 		const buttonClassName = classnames({

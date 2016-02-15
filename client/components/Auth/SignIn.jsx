@@ -5,7 +5,7 @@ import {errorAlert} from 'utils/alerts';
 export default class SignIn extends Component {
 	static propTypes = {
 		location: PropTypes.object.isRequired
-	};
+	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
@@ -31,7 +31,7 @@ export default class SignIn extends Component {
 
 			browserHistory.push(loc);
 		});
-	};
+	}
 
 	render() {
 		return (

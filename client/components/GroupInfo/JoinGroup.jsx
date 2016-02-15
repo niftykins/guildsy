@@ -8,11 +8,11 @@ import Input from '../Utils/Input';
 export default class JoinGroup extends Component {
 	static propTypes = {
 		onSubmit: PropTypes.func.isRequired
-	};
+	}
 
 	state = {
 		disabled: true
-	};
+	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
@@ -22,7 +22,7 @@ export default class JoinGroup extends Component {
 		if ( ! username) return;
 
 		this.props.onSubmit(username);
-	};
+	}
 
 	render() {
 		const buttonClassName = classnames({

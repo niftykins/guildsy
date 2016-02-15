@@ -25,13 +25,13 @@ export default class CreateGroup extends Component {
 
 	onUpdateGroup = (field, value) => {
 		this.data.partial.updateField(field, value);
-	};
+	}
 
 	onCreateGroup = () => {
 		this.data.partial.createGroup((err, groupUrl) => {
 			if ( ! err) browserHistory.push(`/g/${groupUrl}`);
 		});
-	};
+	}
 
 	renderStepper(step) {
 		const bullets = [];

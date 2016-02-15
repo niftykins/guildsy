@@ -15,11 +15,11 @@ export default class Confirm extends Component {
 		onUpdateGroup: PropTypes.func.isRequired,
 		onCreateGroup: PropTypes.func.isRequired,
 		stepper: PropTypes.node
-	};
+	}
 
 	state = {
 		disabled: false
-	};
+	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
@@ -35,7 +35,7 @@ export default class Confirm extends Component {
 		});
 
 		this.props.onCreateGroup();
-	};
+	}
 
 	render() {
 		const {name, url, username} = this.props;

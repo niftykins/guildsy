@@ -26,6 +26,7 @@ export default class GroupPicker extends Component {
 				<Link
 					className="create-icon"
 					to="/explore"
+					activeClassName="active"
 				>
 					<i className="material-icons">add</i>
 				</Link>

@@ -11,7 +11,7 @@ import {Groups, GroupMembers} from 'models';
 export default class Menu extends Component {
 	static propTypes = {
 		groupUrl: PropTypes.string
-	};
+	}
 
 	getMeteorData() {
 		const {groupUrl} = this.props;

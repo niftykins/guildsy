@@ -11,7 +11,7 @@ export default class AuthedLayout extends Component {
 	static propTypes = {
 		children: PropTypes.node,
 		location: PropTypes.object
-	};
+	}
 
 	getMeteorData() {
 		const isLoading = !Meteor.subscribe('user').ready();
