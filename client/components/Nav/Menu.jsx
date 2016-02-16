@@ -3,6 +3,8 @@ import ReactMixin from 'react-mixin';
 import ReactMeteorData from 'react-meteor-data';
 import classnames from 'classnames';
 
+import {Link} from 'react-router';
+
 import * as GroupState from 'utils/GroupState';
 
 import {Groups, GroupMembers} from 'models';
@@ -19,26 +21,31 @@ export default class Menu extends Component {
 		// early exit if we aren't actually viewing a group
 		if ( ! groupUrl) return {};
 
-		if (GroupState.subscribe(groupUrl).ready()) {
-			const group = Groups.fetchByUrl(groupUrl);
-			const member = group && GroupMembers.fetchUsersMember(group._id);
+		const handle = GroupState.subscribe(groupUrl);
+		const group = Groups.fetchByUrl(groupUrl);
+		const member = group && GroupMembers.fetchUsersMember(group._id);
 
-			return {member, group};
-		}
-
-		return {isLoading: true};
+		return {
+			isLoading: !handle.ready(),
+			member,
+			group
+		};
 	}
 
 	render() {
-		const showContent = !this.data.isLoading && this.props.groupUrl;
+		const {member} = this.data;
+
+		const showContent = !!member;
 
 		const menuClassName = classnames({
-			'empty-frame': !this.props.groupUrl
+			'empty-frame': !member
 		}, 'nav-menu');
 
 		return (
 			<div className={menuClassName}>
 				{showContent && <Header {...this.data} />}
+
+				{showContent && <Members {...this.data} />}
 			</div>
 		);
 	}
@@ -46,7 +53,7 @@ export default class Menu extends Component {
 
 function Header({group, member}) {
 	return (
-		<div className="header">
+		<div className="menu-header">
 			<div className="group-name">
 				{group.name}
 
@@ -55,6 +62,31 @@ function Header({group, member}) {
 
 			<div className="member-name">
 				{member.username}
+			</div>
+		</div>
+	);
+}
+
+function Members({group}) {
+	return (
+		<div className="menu-section">
+			<div className="heading">
+				Members
+
+				{!!group.memberCount &&
+					<span className="count">
+						({group.memberCount})
+					</span>
+				}
+			</div>
+
+			<div className="content">
+				<Link
+					to={`${group.getUrl()}/members`}
+					activeClassName="active"
+				>
+					Group Members
+				</Link>
 			</div>
 		</div>
 	);

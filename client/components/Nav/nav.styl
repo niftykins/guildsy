@@ -63,7 +63,7 @@ $pickerWidth = 4rem
 	&.empty-frame
 		width $pickerWidth
 
-	.header
+	.menu-header
 		padding 1rem 1rem 0.5rem
 		color $white
 		cursor pointer
@@ -97,3 +97,31 @@ $pickerWidth = 4rem
 			color $lightWhite
 			overflow ellipsis
 			font-weight 300
+
+	.menu-section
+		margin 1rem 0 2rem
+		color $lightWhite
+		font-size 13px
+		cursor default
+		user-select none
+
+		.heading
+			$bold-font()
+			margin-left 1rem
+			text-transform uppercase
+			line-height 20px
+
+			.count
+				opacity 0.5
+				margin-left 0.25rem
+				font-weight 500
+
+		.content
+			margin-top 0.25rem
+
+			a
+				display block
+				padding-left 2rem
+				color @color
+				line-height 20px
+				overflow ellipsis

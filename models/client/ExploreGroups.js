@@ -22,3 +22,9 @@ _.extend(ExploreGroups, {
 		});
 	}
 });
+
+ExploreGroups.helpers({
+	getUrl() {
+		return `/g/${this.url}`;
+	}
+});

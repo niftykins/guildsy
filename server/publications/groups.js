@@ -18,11 +18,11 @@ Meteor.publishComposite('group', (url) => {
 
 	// XXX seems bad to double fetch this
 	// perhaps GroupMembers can also have a url field?
-	const g = Groups.fetchByUrl(url, {
+	const group = Groups.fetchByUrl(url, {
 		fields: {_id: 1}
 	});
 
-	if ( ! g) return null;
+	if ( ! group) return null;
 
 	return {
 		// only allow group members to fetch the payload
@@ -30,7 +30,7 @@ Meteor.publishComposite('group', (url) => {
 		find() {
 			return GroupMembers.find({
 				userId: this.userId,
-				groupId: g._id
+				groupId: group._id
 			}, {
 				fields: {
 					groupId: 1,
@@ -41,21 +41,24 @@ Meteor.publishComposite('group', (url) => {
 			});
 		},
 
-		children: [{
-			// fetch the team in question
-			find() {
-				return Groups.find({url}, {
-					fields: {
-						name: 1,
-						url: 1
-					},
-					limit: 1
-				});
+		children: [
+			{
+				// fetch the team in question
+				find() {
+					return Groups.find(group._id, {
+						fields: {
+							memberCount: 1,
+							name: 1,
+							url: 1
+						},
+						limit: 1
+					});
+				}
 			},
 
-			children: [{
+			{
 				// also fetch all the other group members
-				find(group) {
+				find() {
 					return GroupMembers.find({
 						groupId: group._id
 					}, {
@@ -64,7 +67,7 @@ Meteor.publishComposite('group', (url) => {
 						isAdmin: 1
 					});
 				}
-			}]
-		}]
+			}
+		]
 	};
 });

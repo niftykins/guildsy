@@ -31,7 +31,7 @@ export default class IndexGroup extends Component {
 		const {group} = this.data;
 
 		group.joinGroup(username, (err) => {
-			if ( ! err) browserHistory.push(`/g/${group.url}`);
+			if ( ! err) browserHistory.push(group.getUrl());
 		});
 	}
 

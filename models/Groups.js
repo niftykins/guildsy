@@ -35,5 +35,9 @@ _.extend(Groups, {
 Groups.helpers({
 	joinGroup(username, cb) {
 		methodCall('groups.join', this._id, username, cb);
+	},
+
+	getUrl() {
+		return `/g/${this.url}`;
 	}
 });

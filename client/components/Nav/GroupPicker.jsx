@@ -40,7 +40,7 @@ function GroupIcon({group}) {
 		<div className="group-icon-wrapper">
 			<Link
 				className="group-icon"
-				to={`/g/${group.url}`}
+				to={group.getUrl()}
 				activeClassName="active"
 			>
 				{group.name[0]}
