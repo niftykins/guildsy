@@ -27,7 +27,7 @@ export default class JoinGroup extends Component {
 	render() {
 		const buttonClassName = classnames({
 			disabled: this.state.disabled
-		}, 'green button');
+		}, 'green button margin-top');
 
 		return (
 			<form onSubmit={this.onSubmit}>
@@ -38,7 +38,6 @@ export default class JoinGroup extends Component {
 				</p>
 
 				<Input
-					className="margin-bottom"
 					ref="input"
 					type="text"
 					label="Username"

@@ -11,7 +11,8 @@ export default class Input extends Component {
 		onChange: PropTypes.func,
 		value: PropTypes.string,
 		defaultValue: PropTypes.string,
-		className: PropTypes.string
+		className: PropTypes.string,
+		uneditable: PropTypes.bool
 	}
 
 	static defaultProps = {
@@ -36,16 +37,55 @@ export default class Input extends Component {
 		if (this.props.onChange) this.props.onChange(e);
 	}
 
-	render() {
+	renderInput() {
 		const {
 			type,
-			placeholder,
-			label,
-			labelHint,
-			showUrlMask,
 			onChange,
+			placeholder,
+			showUrlMask,
+
+			// exclude this from getting into props
 			className,
 			...props
+		} = this.props;
+
+		const onInputChange = showUrlMask ? this.onInputChange : onChange;
+
+		return (
+			<div className="input-wrapper">
+				{showUrlMask &&
+					<div className="input-mask" ref="mask">
+						{this.props.value || this.props.defaultValue}
+					</div>
+				}
+
+				<input
+					id={this.id}
+					className="input"
+					type={type}
+					ref="input"
+					placeholder={placeholder}
+					onChange={onInputChange}
+					{...props}
+				/>
+			</div>
+		);
+	}
+
+	renderUneditable() {
+		return (
+			<div className="input uneditable">
+				{this.props.value || this.props.defaultValue}
+			</div>
+		);
+	}
+
+	render() {
+		const {
+			label,
+			labelHint,
+			className,
+			uneditable
 		} = this.props;
 
 		const hint = labelHint && (
@@ -53,8 +93,6 @@ export default class Input extends Component {
 				{labelHint}
 			</span>
 		);
-
-		const onInputChange = showUrlMask ? this.onInputChange : onChange;
 
 		const inputGroupClassName = classnames(className, 'input-group');
 
@@ -66,23 +104,7 @@ export default class Input extends Component {
 					</label>
 				}
 
-				<div className="input-wrapper">
-					{showUrlMask &&
-						<div className="input-mask" ref="mask">
-							{this.props.value || this.props.defaultValue}
-						</div>
-					}
-
-					<input
-						id={this.id}
-						className="input"
-						type={type}
-						ref="input"
-						placeholder={placeholder}
-						onChange={onInputChange}
-						{...props}
-					/>
-				</div>
+				{uneditable ? this.renderUneditable() : this.renderInput()}
 			</div>
 		);
 	}

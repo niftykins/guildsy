@@ -40,6 +40,7 @@ function createGroup(partialId) {
 		username: partial.username,
 		userId: this.userId,
 		isAdmin: true,
+		isOwner: true,
 		groupId
 	});
 
@@ -61,6 +62,7 @@ function joinGroup(groupId, username) {
 
 	// ACTIONS
 	// create a group member for user
+	// increase memberCount on the group
 
 	// check groups exists
 	const group = Groups.findOne(groupId, justIdField);
@@ -70,12 +72,9 @@ function joinGroup(groupId, username) {
 	}
 
 	// check username isn't taken
-	const match = GroupMembers.findOne({
-		username,
-		groupId
-	}, justIdField);
+	const free = GroupMembers.checkUsernameAvailability(groupId, username);
 
-	if (match) {
+	if ( ! free) {
 		throw new Meteor.Error('bad-data', 'Username is already taken');
 	}
 
@@ -92,6 +91,13 @@ function joinGroup(groupId, username) {
 		isAdmin: false,
 		username,
 		groupId
+	});
+
+	// bump member count for the group
+	Groups.update(groupId, {
+		$inc: {
+			memberCount: 1
+		}
 	});
 }
 

@@ -13,10 +13,13 @@ import CreateAccount from './components/Auth/CreateAccount';
 
 import IndexPage from './components/Index/IndexPage';
 
-import GroupInfo from './components/GroupInfo/GroupInfo';
-
 import CreateGroup from './components/CreateGroup/CreateGroup';
 import ExplorePage from './components/Explore/ExplorePage';
+
+import GroupInfo from './components/GroupInfo/GroupInfo';
+
+import Members from './components/Members/Members';
+import Member from './components/Members/Member';
 
 const router = (
 	<Router history={browserHistory}>
@@ -34,6 +37,9 @@ const router = (
 
 			<Route path="g/:groupUrl">
 				<Route path="info" component={GroupInfo} />
+
+				<Route path="members" component={Members} />
+				<Route path="members/:username" component={Member} />
 			</Route>
 		</Route>
 	</Router>
