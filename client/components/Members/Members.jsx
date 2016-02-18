@@ -2,7 +2,7 @@ import {Component} from 'react';
 import ReactMixin from 'react-mixin';
 import ReactMeteorData from 'react-meteor-data';
 
-import {getHandle, getState} from 'utils/GroupState';
+import {getHandle, getState} from 'utils/groupState';
 
 import RelativeLink from '../Utils/RelativeLink';
 

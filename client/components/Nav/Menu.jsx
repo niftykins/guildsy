@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 import {Link} from 'react-router';
 
-import * as GroupState from 'utils/GroupState';
+import {subscribe} from 'utils/groupState';
 
 import {Groups, GroupMembers} from 'models';
 
@@ -21,7 +21,7 @@ export default class Menu extends Component {
 		// early exit if we aren't actually viewing a group
 		if ( ! groupUrl) return {};
 
-		const handle = GroupState.subscribe(groupUrl);
+		const handle = subscribe(groupUrl);
 		const group = Groups.fetchByUrl(groupUrl);
 		const member = group && GroupMembers.fetchUsersMember(group._id);
 

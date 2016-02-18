@@ -4,7 +4,7 @@ import ReactMeteorData from 'react-meteor-data';
 import classnames from 'classnames';
 import {browserHistory} from 'react-router';
 
-import {getHandle, getState} from 'utils/GroupState';
+import {getHandle, getState} from 'utils/groupState';
 import {replaceLastSegment} from 'utils/url';
 
 import Input from '../Utils/Input';

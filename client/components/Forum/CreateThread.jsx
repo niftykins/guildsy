@@ -1,20 +1,40 @@
-import {Component} from 'react';
+import {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import {Link, browserHistory} from 'react-router';
 
-import {removeLastSegment} from 'utils/url';
+import {replaceLastSegment, removeLastSegment} from 'utils/url';
 import {checkRefsForDisabled} from 'utils/client';
+import {getState} from 'utils/groupState';
 
-import {Link} from 'react-router';
 import Input from '../Utils/Input';
 import Editor from '../Utils/Editor';
 
+import {Threads} from 'models';
+
 export default class CreateThread extends Component {
+	static propTypes = {
+		params: PropTypes.object.isRequired
+	}
+
 	state = {
 		disabled: true
 	}
 
 	onSubmit = () => {
+		const title = this.refs.title.getValue();
+		const content = this.refs.content.getValue();
 
+		if ( ! title || ! content) return;
+
+		const {groupId} = getState();
+		const data = {title, content};
+
+		Threads.createThread(groupId, data, (err, threadId) => {
+			if (err) return;
+
+			const url = replaceLastSegment(`/t/${threadId}`);
+			browserHistory.push(url);
+		});
 	}
 
 	render() {
@@ -32,6 +52,7 @@ export default class CreateThread extends Component {
 						placeholder="What is this discussion about?"
 						label="Discussion Title"
 						onChange={checkRefsForDisabled.bind(this)}
+						autoFocus={true}
 					/>
 
 					<Editor
