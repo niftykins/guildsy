@@ -11,10 +11,9 @@ browserHistory.listen((l) => {
 });
 
 export function relativeLink(to) {
-	let newTo = `${location.pathname}/${to}`;
-	newTo = newTo.replace('//', '/');
+	const path = `${location.pathname}/${to}`;
 
-	return newTo;
+	return path.replace('//', '/');
 }
 
 export function replaceLastSegment(to) {
@@ -26,10 +25,13 @@ export function replaceLastSegment(to) {
 	}
 
 	const index = p.lastIndexOf('/');
-	const path = p.substr(0, index);
+	let path = p.substr(0, index);
 
-	let newTo = `${path}/${to}`;
-	newTo = newTo.replace('//', '/');
+	if (to) path += `/${to}`;
 
-	return newTo;
+	return path.replace('//', '/');
+}
+
+export function removeLastSegment() {
+	return replaceLastSegment();
 }

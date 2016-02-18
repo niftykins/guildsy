@@ -46,6 +46,7 @@ export default class Menu extends Component {
 				{showContent && <Header {...this.data} />}
 
 				{showContent && <Members {...this.data} />}
+				{showContent && <Forums {...this.data} />}
 			</div>
 		);
 	}
@@ -88,6 +89,20 @@ function Members({group}) {
 					Group Members
 				</Link>
 			</div>
+		</div>
+	);
+}
+
+function Forums({group}) {
+	return (
+		<div className="menu-section">
+			<Link
+				className="heading"
+				to={`${group.getUrl()}/forum`}
+				activeClassName="active"
+			>
+				Forum
+			</Link>
 		</div>
 	);
 }

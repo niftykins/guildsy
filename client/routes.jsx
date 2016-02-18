@@ -21,6 +21,9 @@ import GroupInfo from './components/GroupInfo/GroupInfo';
 import Members from './components/Members/Members';
 import Member from './components/Members/Member';
 
+import AllThreads from './components/Forum/AllThreads';
+import CreateThread from './components/Forum/CreateThread';
+
 const router = (
 	<Router history={browserHistory}>
 		<Route component={UnauthedLayout}>
@@ -40,6 +43,9 @@ const router = (
 
 				<Route path="members" component={Members} />
 				<Route path="members/:username" component={Member} />
+
+				<Route path="forum" component={AllThreads} />
+				<Route path="forum/create-thread" component={CreateThread} />
 			</Route>
 		</Route>
 	</Router>
