@@ -4,6 +4,8 @@ import createdUpdated from './createdUpdated';
 
 import methodCall from 'utils/methodCall';
 
+import {GroupMembers, Groups} from 'models';
+
 const Threads = new Mongo.Collection('threads');
 export default Threads;
 
@@ -44,7 +46,32 @@ Threads.attachSchema(schema);
 _.extend(Threads, {
 	createThread(groupId, data, cb) {
 		methodCall('threads.create', groupId, data, cb);
+	},
+
+	fetchLatest(groupId, withAuthor) {
+		const threads = this.find({groupId}, {
+			sort: {updated: -1}
+		}).fetch();
+
+		if (withAuthor) {
+			threads.forEach((thread) => {
+				thread.author = GroupMembers.findOne({
+					groupId: thread.groupId,
+					userId: thread.userId
+				}) || {};
+			});
+		}
+
+		return threads;
 	}
 });
 
+Threads.helpers({
+	getUrl() {
+		const group = Groups.findOne(this.groupId, {
+			fields: {url: 1}
+		});
 
+		return `${group.getUrl()}/forum/t/${this._id}`;
+	}
+});

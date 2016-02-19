@@ -4,6 +4,8 @@ import createdUpdated from './createdUpdated';
 
 import methodCall from 'utils/methodCall';
 
+import {Groups} from 'models';
+
 const GroupMembers = new Mongo.Collection('group-members');
 export default GroupMembers;
 
@@ -70,5 +72,13 @@ GroupMembers.helpers({
 	// helpers
 	updateMember(update, cb) {
 		methodCall('groupMembers.update', this._id, update, cb);
+	},
+
+	getUrl() {
+		const group = Groups.findOne(this.groupId, {
+			fields: {url: 1}
+		});
+
+		return `${group.getUrl()}/members/${this.username}`;
 	}
 });

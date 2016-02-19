@@ -1,6 +1,5 @@
 import {GroupMembers, Threads} from 'models';
-
-const justIdField = {fields: {_id: 1}};
+import {justIdField} from 'utils/common';
 
 function createThread(groupId, data) {
 	check(groupId, String);

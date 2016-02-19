@@ -21,8 +21,9 @@ import GroupInfo from './components/GroupInfo/GroupInfo';
 import Members from './components/Members/Members';
 import Member from './components/Members/Member';
 
-import AllThreads from './components/Forum/AllThreads';
+import LatestThreads from './components/Forum/LatestThreads';
 import CreateThread from './components/Forum/CreateThread';
+import Thread from './components/Forum/Thread';
 
 const router = (
 	<Router history={browserHistory}>
@@ -44,8 +45,9 @@ const router = (
 				<Route path="members" component={Members} />
 				<Route path="members/:username" component={Member} />
 
-				<Route path="forum" component={AllThreads} />
+				<Route path="forum" component={LatestThreads} />
 				<Route path="forum/create-thread" component={CreateThread} />
+				<Route path="forum/t/:threadId" component={Thread} />
 			</Route>
 		</Route>
 	</Router>

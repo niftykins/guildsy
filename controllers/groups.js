@@ -1,6 +1,5 @@
 import {Groups, PartialGroups, GroupMembers} from 'models';
-
-const justIdField = {fields: {_id: 1}};
+import {justIdField} from 'utils/common';
 
 function createGroup(partialId) {
 	check(partialId, String);
