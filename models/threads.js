@@ -63,6 +63,17 @@ _.extend(Threads, {
 		}
 
 		return threads;
+	},
+
+	fetchWithAuthor(threadId) {
+		const thread = Threads.findOne(threadId);
+
+		thread.author = GroupMembers.findOne({
+			groupId: thread.groupId,
+			userId: thread.userId
+		}) || {};
+
+		return thread;
 	}
 });
 

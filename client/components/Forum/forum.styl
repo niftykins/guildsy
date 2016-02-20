@@ -24,11 +24,52 @@
 			border-radius $borderRadius
 			float left
 
+			& + .info
+				min-height @height
+
 		.info
 			overflow hidden
-			min-height 35px
 
 		.details
 			color $grey
 			font-size 12px
 			cursor default
+
+.thread-page
+	padding 2rem
+
+	.thread-post
+		clear both
+		padding 1rem 0
+		border-top 1px solid $cardBorderColour
+
+		&:last-child
+			padding-bottom 0
+
+		img
+			width 35px
+			height @width
+			margin-right 1rem
+			border-radius $borderRadius
+			float left
+
+			& + .post-container
+				min-height @height
+
+		.post-container
+			overflow hidden
+
+		.profile-link
+			$bold-font()
+
+		.stats
+			color $grey
+			font-size 12px
+			cursor default
+			vertical-align text-bottom
+			margin-left 0.35rem
+
+		.content
+			margin-top 0.5rem
+			white-space pre-wrap
+			font-weight 300

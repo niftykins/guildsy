@@ -30,3 +30,36 @@ Meteor.publish('threads.latest', function(url) {
 		sort: {updated: -1}
 	});
 });
+
+// publish a single thread
+Meteor.publish('thread', function(threadId) {
+	check(threadId, String);
+
+	const thread = Threads.findOne(threadId, {
+		fields: {groupId: 1}
+	});
+
+	if ( ! thread) return null;
+
+	// need to check group membership before sending data
+	const member = GroupMembers.fetchMember(thread.groupId, this.userId, justIdField);
+
+	if ( ! member) return null;
+
+	const threadCursor = Threads.find(threadId, {
+		fields: {
+			userId: 1,
+			groupId: 1,
+			title: 1,
+			content: 1,
+			editCount: 1,
+			created: 1,
+			updated: 1
+		},
+		limit: 1
+	});
+
+	return [
+		threadCursor
+	];
+});
