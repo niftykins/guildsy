@@ -4,4 +4,5 @@ export {default as PartialGroups} from './partialGroups';
 export {default as Groups} from './groups';
 export {default as GroupMembers} from './groupMembers';
 
-export {default as Threads} from './Threads';
+export {default as Threads} from './threads';
+export {default as ThreadReplies} from './threadReplies';

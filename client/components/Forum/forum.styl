@@ -1,6 +1,9 @@
 .create-thread
 	padding 2rem
 
+	.editor
+		height 15rem
+
 .threads-page
 	padding 2rem
 
@@ -36,6 +39,8 @@
 			cursor default
 
 .thread-page
+	position relative
+	height 100%
 	padding 2rem
 
 	.thread-post
@@ -44,7 +49,7 @@
 		border-top 1px solid $cardBorderColour
 
 		&:last-child
-			padding-bottom 0
+			border-bottom 1px solid $cardBorderColour
 
 		img
 			width 35px
@@ -73,3 +78,33 @@
 			margin-top 0.5rem
 			white-space pre-wrap
 			font-weight 300
+
+.thread-editor
+	display flex
+	flex-direction column
+	position absolute
+	bottom 0
+	left 0
+	right 0
+	overflow hidden
+	height 300px
+	background-color $grey200
+	transition height 400ms ease
+
+	&.hidden
+		height 0
+
+	.editor
+		display flex
+		$flex-expand()
+		flex-direction column
+		margin 2rem 2rem 0
+		height auto
+
+		textarea
+			$flex-expand()
+
+	.button-group
+		margin-left 2rem
+		margin-right 2rem
+		margin-bottom 1rem

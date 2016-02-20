@@ -5,6 +5,10 @@ export default class Editor extends Component {
 		return this.refs.content.value;
 	}
 
+	clearValue() {
+		this.refs.content.value = '';
+	}
+
 	render() {
 		const {...props} = this.props;
 

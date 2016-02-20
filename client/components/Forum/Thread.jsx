@@ -4,6 +4,7 @@ import ReactMeteorData from 'react-meteor-data';
 
 import TimeAgo from '../Utils/TimeAgo';
 import ProfileLink from '../Utils/ProfileLink';
+import ThreadEditor from './ThreadEditor';
 
 import {Threads} from 'models';
 
@@ -18,7 +19,7 @@ export default class Thread extends Component {
 
 		if (Meteor.subscribe('thread', threadId).ready()) {
 			const thread = Threads.fetchWithAuthor(threadId);
-			const posts = [];
+			const posts = thread.fetchRepliesWithAuthors();
 
 			// push the OP into posts list
 			posts.unshift(thread);
@@ -52,6 +53,20 @@ export default class Thread extends Component {
 					<h1>{thread.title}</h1>
 
 					{this.renderPosts()}
+
+					<div className="button-group">
+						<div
+							className="blue button"
+							onClick={() => this.refs.editor.toggleEditorArea()}
+						>
+							Reply
+						</div>
+					</div>
+
+					<ThreadEditor
+						ref="editor"
+						thread={thread}
+					/>
 				</div>
 			</div>
 		);

@@ -4,7 +4,7 @@ import createdUpdated from './createdUpdated';
 
 import methodCall from 'utils/methodCall';
 
-import {GroupMembers, Groups} from 'models';
+import {GroupMembers, Groups, ThreadReplies} from 'models';
 
 const Threads = new Mongo.Collection('threads');
 export default Threads;
@@ -78,11 +78,30 @@ _.extend(Threads, {
 });
 
 Threads.helpers({
+	fetchRepliesWithAuthors() {
+		return ThreadReplies.find({
+			threadId: this._id
+		}, {
+			sort: {created: -1}
+		}).map((reply) => {
+			reply.author = GroupMembers.findOne({
+				groupId: this.groupId,
+				userId: reply.userId
+			}) || {};
+
+			return reply;
+		});
+	},
+
 	getUrl() {
 		const group = Groups.findOne(this.groupId, {
 			fields: {url: 1}
 		});
 
 		return `${group.getUrl()}/forum/t/${this._id}`;
+	},
+
+	createReply(data, cb) {
+		methodCall('threads.reply', this._id, data, cb);
 	}
 });

@@ -1,4 +1,4 @@
-import {Groups, GroupMembers, Threads} from 'models';
+import {Groups, GroupMembers, Threads, ThreadReplies} from 'models';
 import {justIdField} from 'utils/common';
 
 // publish the latest threads
@@ -59,7 +59,19 @@ Meteor.publish('thread', function(threadId) {
 		limit: 1
 	});
 
+	const repliesCursor = ThreadReplies.find({threadId}, {
+		fields: {
+			userId: 1,
+			threadId: 1,
+			content: 1,
+			editCount: 1,
+			created: 1,
+			updated: 1
+		}
+	});
+
 	return [
-		threadCursor
+		threadCursor,
+		repliesCursor
 	];
 });
