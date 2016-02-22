@@ -20,11 +20,17 @@ export default class ThreadEditor extends Component {
 	}
 
 	toggleEditorArea = () => {
-		this.setState({hidden: !this.state.hidden});
+		const hidden = !this.state.hidden;
+
+		this.setState({hidden});
+
+		if ( ! hidden) {
+			this.refs.editor.focus();
+		}
 	}
 
 	onSubmit = () => {
-		const content = this.refs.content.getValue();
+		const content = this.refs.editor.getValue();
 
 		if ( ! content) return;
 
@@ -33,7 +39,7 @@ export default class ThreadEditor extends Component {
 		this.props.thread.createReply(data, (err) => {
 			if ( ! err) {
 				this.setState({hidden: true});
-				this.refs.content.clearValue();
+				this.refs.editor.clearValue();
 			}
 		});
 	}
@@ -50,7 +56,7 @@ export default class ThreadEditor extends Component {
 		return (
 			<div className={editorClassName}>
 				<Editor
-					ref="content"
+					ref="editor"
 					placeholder="Type your reply here"
 					onChange={checkRefsForDisabled.bind(this)}
 				/>

@@ -38,8 +38,6 @@ export default class Thread extends Component {
 		return (
 			<div className="thread-posts">
 				{posts}
-				{posts}
-				{posts}
 			</div>
 		);
 	}
