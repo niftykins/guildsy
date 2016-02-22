@@ -82,7 +82,7 @@ Threads.helpers({
 		return ThreadReplies.find({
 			threadId: this._id
 		}, {
-			sort: {created: -1}
+			sort: {created: 1}
 		}).map((reply) => {
 			reply.author = GroupMembers.findOne({
 				groupId: this.groupId,

@@ -38,6 +38,8 @@ export default class Thread extends Component {
 		return (
 			<div className="thread-posts">
 				{posts}
+				{posts}
+				{posts}
 			</div>
 		);
 	}
@@ -50,16 +52,18 @@ export default class Thread extends Component {
 		return (
 			<div className="page-container">
 				<div className="thread-page">
-					<h1>{thread.title}</h1>
+					<div className="thread-content">
+						<h1>{thread.title}</h1>
 
-					{this.renderPosts()}
+						{this.renderPosts()}
 
-					<div className="button-group">
-						<div
-							className="blue button"
-							onClick={() => this.refs.editor.toggleEditorArea()}
-						>
-							Reply
+						<div className="button-group">
+							<div
+								className="blue button"
+								onClick={() => this.refs.editor.toggleEditorArea()}
+							>
+								Reply
+							</div>
 						</div>
 					</div>
 

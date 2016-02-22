@@ -39,9 +39,17 @@
 			cursor default
 
 .thread-page
-	position relative
+	// position relative
+	// padding 2rem
 	height 100%
-	padding 2rem
+	display flex
+	flex-direction column
+	justify-content space-between
+
+	.thread-content
+		$flex-expand()
+		padding 2rem
+		overflow auto
 
 	.thread-post
 		clear both
@@ -82,10 +90,11 @@
 .thread-editor
 	display flex
 	flex-direction column
-	position absolute
-	bottom 0
-	left 0
-	right 0
+	flex-shrink 0
+	// position fixed
+	// bottom 0
+	// left 0
+	// right 0
 	overflow hidden
 	height 300px
 	background-color $grey200
