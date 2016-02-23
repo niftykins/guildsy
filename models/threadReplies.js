@@ -1,5 +1,10 @@
+import _ from '_';
 import SimpleSchema from 'simple-schema';
 import createdUpdated from './createdUpdated';
+
+import methodCall from 'utils/methodCall';
+
+import {GroupMembers} from 'models';
 
 const ThreadReplies  = new Mongo.Collection('threadReplies');
 export default ThreadReplies;
@@ -33,3 +38,25 @@ const schema = new SimpleSchema([createdUpdated, {
 }]);
 
 ThreadReplies.attachSchema(schema);
+
+_.extend(ThreadReplies, {
+	fetchRepliesWithAuthors({groupId, threadId}) {
+		return ThreadReplies.find({threadId}, {
+			sort: {created: 1}
+		}).map((reply) => {
+			reply.author = GroupMembers.findOne({
+				userId: reply.userId,
+				groupId
+			}) || {};
+
+			return reply;
+		});
+	}
+});
+
+ThreadReplies.helpers({
+	edit(data, cb) {
+		methodCall('threadReplies.edit', this._id, data, cb);
+	}
+});
+

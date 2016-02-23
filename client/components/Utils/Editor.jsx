@@ -9,6 +9,10 @@ export default class Editor extends Component {
 		this.refs.content.value = '';
 	}
 
+	setValue(value) {
+		this.refs.content.value = value;
+	}
+
 	focus() {
 		this.refs.content.focus();
 	}

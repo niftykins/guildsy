@@ -2,9 +2,8 @@ import {Component, PropTypes} from 'react';
 import ReactMixin from 'react-mixin';
 import ReactMeteorData from 'react-meteor-data';
 
-import TimeAgo from '../Utils/TimeAgo';
-import ProfileLink from '../Utils/ProfileLink';
 import ThreadEditor from './ThreadEditor';
+import Post from './Post';
 
 import {Threads} from 'models';
 
@@ -24,15 +23,25 @@ export default class Thread extends Component {
 			// push the OP into posts list
 			posts.unshift(thread);
 
-			return {thread, posts};
+			return {thread,	posts};
 		}
 
 		return {isLoading: true};
 	}
 
+	onEditReply = (reply) => {
+		this.refs.editor.editReply(reply);
+	}
+
 	renderPosts() {
 		const posts = this.data.posts.map((post) => {
-			return <Post key={post._id} post={post} />;
+			return (
+				<Post
+					key={post._id}
+					post={post}
+					onEditReply={this.onEditReply}
+				/>
+			);
 		});
 
 		return (
@@ -73,26 +82,4 @@ export default class Thread extends Component {
 			</div>
 		);
 	}
-}
-
-function Post({post}) {
-	return (
-		<div className="thread-post">
-			<img src="https://placehold.it/50x50" />
-
-			<div className="post-container">
-				<div className="details">
-					<ProfileLink member={post.author} />
-
-					<span className="stats">
-						<TimeAgo date={post.created} />
-					</span>
-				</div>
-
-				<div className="content">
-					{post.content}
-				</div>
-			</div>
-		</div>
-	);
 }

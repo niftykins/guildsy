@@ -69,6 +69,11 @@ GroupMembers.helpers({
 		return this.isAdmin || this._id === memberId;
 	},
 
+	// can edit if admin or owner of reply
+	canEditThreadReply(reply) {
+		return this.isAdmin || this._id === reply.userId;
+	},
+
 	// helpers
 	updateMember(update, cb) {
 		methodCall('groupMembers.update', this._id, update, cb);

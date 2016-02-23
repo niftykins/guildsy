@@ -7,7 +7,8 @@ import Editor from '../Utils/Editor';
 
 export default class ThreadEditor extends Component {
 	static propTypes = {
-		thread: PropTypes.object.isRequired
+		thread: PropTypes.object.isRequired,
+		editReply: PropTypes.object
 	}
 
 	constructor(props) {
@@ -15,7 +16,8 @@ export default class ThreadEditor extends Component {
 
 		this.state = {
 			hidden: true,
-			disabled: true
+			disabled: true,
+			editId: null
 		};
 	}
 
@@ -29,13 +31,26 @@ export default class ThreadEditor extends Component {
 		}
 	}
 
-	onSubmit = () => {
-		const content = this.refs.editor.getValue();
+	editReply(reply) {
+		this.setState({
+			hidden: false,
+			disabled: false,
+			editReply: reply
+		});
 
-		if ( ! content) return;
+		this.refs.editor.setValue(reply.content);
+	}
 
-		const data = {content};
+	onSubmitEdit(data) {
+		this.state.editReply.edit(data, (err) => {
+			if ( ! err) {
+				this.setState({hidden: true});
+				this.refs.editor.clearValue();
+			}
+		});
+	}
 
+	onSubmitReply(data) {
 		this.props.thread.createReply(data, (err) => {
 			if ( ! err) {
 				this.setState({hidden: true});
@@ -44,17 +59,39 @@ export default class ThreadEditor extends Component {
 		});
 	}
 
-	render() {
-		const editorClassName = classnames({
-			hidden: this.state.hidden
-		}, 'thread-editor');
+	onSubmit = () => {
+		const content = this.refs.editor.getValue();
 
-		const buttonClassName = classnames({
-			disabled: this.state.disabled
-		}, 'green button');
+		if ( ! content) return;
+
+		const data = {content};
+
+		if (this.state.editReply) this.onSubmitEdit(data);
+		else this.onSubmitReply(data);
+	}
+
+	onCancel = () => {
+		this.setState({
+			hidden: true,
+			editReply: null
+		});
+
+		this.refs.editor.clearValue();
+	}
+
+	render() {
+		const {hidden, disabled, editReply} = this.state;
+
+		const editorClassName = classnames({hidden}, 'thread-editor');
+		const buttonClassName = classnames({disabled}, 'green button');
 
 		return (
 			<div className={editorClassName}>
+				<ActionBar
+					editReply={editReply}
+					onCloseEditor={this.toggleEditorArea}
+				/>
+
 				<Editor
 					ref="editor"
 					placeholder="Type your reply here"
@@ -64,7 +101,7 @@ export default class ThreadEditor extends Component {
 				<div className="button-group">
 					<div
 						className="outline button"
-						onClick={this.toggleEditorArea}
+						onClick={this.onCancel}
 					>
 						Cancel
 					</div>
@@ -73,10 +110,28 @@ export default class ThreadEditor extends Component {
 						className={buttonClassName}
 						onClick={this.onSubmit}
 					>
-						Create Reply
+						{editReply ? 'Edit Reply' : 'Create Reply'}
 					</div>
 				</div>
 			</div>
 		);
 	}
+}
+
+
+function ActionBar({editReply, onCloseEditor}) {
+	return (
+		<div className="editor-action">
+			<div className="action">
+				{editReply ? 'Editing Reply' : 'Creating Reply'}
+			</div>
+
+			<i
+				className="material-icons toggle-icon"
+				onClick={onCloseEditor}
+			>
+				keyboard_arrow_down
+			</i>
+		</div>
+	);
 }

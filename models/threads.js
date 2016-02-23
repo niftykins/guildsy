@@ -79,17 +79,9 @@ _.extend(Threads, {
 
 Threads.helpers({
 	fetchRepliesWithAuthors() {
-		return ThreadReplies.find({
+		return ThreadReplies.fetchRepliesWithAuthors({
+			groupId: this.groupId,
 			threadId: this._id
-		}, {
-			sort: {created: 1}
-		}).map((reply) => {
-			reply.author = GroupMembers.findOne({
-				groupId: this.groupId,
-				userId: reply.userId
-			}) || {};
-
-			return reply;
 		});
 	},
 

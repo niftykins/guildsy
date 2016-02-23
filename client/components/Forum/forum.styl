@@ -59,6 +59,10 @@
 		&:last-child
 			border-bottom 1px solid $cardBorderColour
 
+		&:hover
+			.edit-icon
+				display block
+
 		img
 			width 35px
 			height @width
@@ -82,6 +86,15 @@
 			vertical-align text-bottom
 			margin-left 0.35rem
 
+		.edit-icon
+			color $grey
+			cursor pointer
+			float right
+			display none
+
+			i
+				font-size 18px
+
 		.content
 			margin-top 0.5rem
 			white-space pre-wrap
@@ -103,11 +116,29 @@
 	&.hidden
 		height 0
 
+	.editor-action
+		display flex
+		align-items center
+		justify-content space-between
+		padding 0.5rem 2rem
+
+		.action
+			$bold-font()
+			font-size 14px
+			color $grey
+
+		.toggle-icon
+			cursor pointer
+			color $grey
+
+			&:hover
+				color $black
+
 	.editor
 		display flex
 		$flex-expand()
 		flex-direction column
-		margin 2rem 2rem 0
+		margin 0 2rem
 		height auto
 
 		textarea
